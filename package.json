@@ -2,7 +2,8 @@
   "name": "apprun-web-components",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "public/index.js",
+  "module": "public/index.esm.js",
   "scripts": {
     "build": "run-s build:*",
     "build:ts": "tsc -p src",
