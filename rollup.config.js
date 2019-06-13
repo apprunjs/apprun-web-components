@@ -2,11 +2,11 @@ import { terser } from 'rollup-plugin-terser';
 import sourcemaps from 'rollup-plugin-sourcemaps';
 import nodeResolve from "rollup-plugin-node-resolve";
 
-export default {
-  input: 'bin/index.js',
+const add = (name, input) => ({
+  input,
   output: {
-    name: "my-lib",
-    file: 'public/index.js',
+    name,
+    dir: "public",
     format: 'umd',
     sourcemap: true,
     globals: {
@@ -19,4 +19,8 @@ export default {
     terser({ warnings: true, module: true, mangle: { properties: { regex: /^__/ } } }),
     sourcemaps(),
   ]
-};
+})
+
+export default [
+  add('apprun-web-components', 'bin/index.js')
+]
