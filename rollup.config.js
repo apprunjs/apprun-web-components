@@ -1,26 +1,27 @@
-import { terser } from 'rollup-plugin-terser';
-import sourcemaps from 'rollup-plugin-sourcemaps';
-import nodeResolve from "rollup-plugin-node-resolve";
+import typescript from "@rollup/plugin-typescript";
+import resolve from "@rollup/plugin-node-resolve";
+import { terser } from "rollup-plugin-terser";
+import sourcemaps from "rollup-plugin-sourcemaps";
 
-const add = (name, input) => ({
+const compile = (input, file) => ({
   input,
   output: {
-    name,
-    dir: "public",
-    format: 'umd',
+    file,
+    format: "iife",
     sourcemap: true,
-    globals: {
-      apprun: 'apprun'
-    }
+    globals: { apprun: "apprun" }
   },
-  external: ['apprun'],
   plugins: [
-    nodeResolve(),
-    terser({ warnings: true, module: true, mangle: { properties: { regex: /^__/ } } }),
-    sourcemaps(),
+    resolve(),
+    typescript({ tsconfig: "src/tsconfig.json" }),
+    terser({
+      warnings: true,
+      output: { comments: false }
+    }),
+    sourcemaps()
   ]
-})
+});
 
 export default [
-  add('apprun-web-components', 'bin/index.js')
-]
+  compile("src/index.tsx", "public/index.js")
+];

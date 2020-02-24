@@ -8,7 +8,6 @@
 		"lib": ["es2017", "dom", "es5"],
 		"experimentalDecorators": true,
 		"sourceMap": true,
-		"outDir": "../bin",
 		"strictNullChecks": true,
 		"importHelpers": true
 	}
